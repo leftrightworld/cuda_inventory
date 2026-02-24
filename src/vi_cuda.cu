@@ -12,6 +12,7 @@
 
 int main(void) {
     Instance inst = INSTANCE_P1;
+    inst.N = state_space_size(inst.Qa, inst.Qb);
     printf("CUDA Perishable Inventory VI - GPU\n");
     printf("Instance P1: mu_a=%d mu_b=%d Qa=%d Qb=%d N=%d\n",
            inst.mu_a, inst.mu_b, inst.Qa, inst.Qb, inst.N);

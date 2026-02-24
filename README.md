@@ -1,54 +1,66 @@
 # CUDA Perishable Inventory Control
 
-复现论文：*A CUDA approach to compute perishable inventory control policies using value iteration* (Ortega et al., The Journal of Supercomputing, 2018)
+Reproduction of *A CUDA approach to compute perishable inventory control policies using value iteration* (Ortega et al., The Journal of Supercomputing, 2018).
 
-## 复现范围
+## Scope
 
-- **双产品**易腐库存模型（含替代 substitution）
-- Value Iteration (VI) 串行实现 (Algorithm 3)
-- CUDA GPU 加速实现 (Algorithm 4/5)
+- **Two-product** perishable inventory model with **substitution**
+- Sequential Value Iteration (VI) implementation (Algorithm 3)
+- CUDA GPU implementation (Algorithm 4/5)
 
-## 环境要求
+## Requirements
 
-- CUDA Toolkit 11+ (论文原文 CUDA 8)
+- CUDA Toolkit 11+ (paper used CUDA 8)
 - GCC/G++
 - NVIDIA GPU (Compute Capability 3.7+)
 
-## 项目结构
+## Project structure
 
 ```
 cuda_inventory/
-├── src/           # 源代码
-├── scripts/       # 运行脚本
-├── results/       # 运行结果
-└── docs/          # 论文等资料
+├── src/           # Source code
+├── scripts/       # Run scripts
+├── results/       # Run results and checkpoints
+└── docs/          # Paper and references
 ```
 
-## 编译
+## Build
 
 ```bash
 make
 ```
 
-## 运行
+## Run
 
 ```bash
-# 串行版本
+# Sequential (P1 -> P2 -> P3 -> P4; skips instances with existing checkpoint)
 ./build/vi_sequential
-
-# CUDA 版本
-./build/vi_cuda
 ```
 
-## 参考结果 (论文 Table 4)
+**OpenMP** (faster on multi-core): on macOS run `brew install libomp`, then:
+```bash
+make sequential OPENMP=1
+```
 
-| 实例 | μa | μb | N    | 串行(s) | GPU(s) | 加速比 |
-|------|----|----|------|---------|--------|--------|
-| P1   | 5  | 5  | 14461 | 357.89 | 91.29  | ~3.9×  |
-| P2   | 5  | 6  | 20449 | 698.20 | 136.84 | ~5.1×  |
-| P3   | 6  | 6  | 28561 | 1358.04| 214.71 | ~6.3×  |
-| P4   | 7  | 7  | 38416 | 4241.66| 361.49 | ~11.7× |
+**CUDA** (requires GPU): `./build/vi_cuda`
+
+## Reference results (paper Table 4)
+
+| Instance | μa | μb | N     | Sequential (s) | GPU (s) | Speedup |
+|----------|----|----|-------|----------------|---------|---------|
+| P1       | 5  | 5  | 14461 | 357.89         | 91.29   | ~3.9×   |
+| P2       | 5  | 6  | 20449 | 698.20         | 136.84  | ~5.1×   |
+| P3       | 6  | 6  | 28561 | 1358.04        | 214.71  | ~6.3×   |
+| P4       | 7  | 7  | 38416 | 4241.66        | 361.49  | ~11.7×  |
+
+## GitHub
+
+```bash
+# After creating an empty repo on GitHub
+git remote add origin https://github.com/YOUR_USERNAME/cuda_inventory.git
+git push -u origin main
+```
 
 ## License
 
-学术复现用途，遵循原论文的 Creative Commons Attribution 4.0。
+Academic reproduction; follows the paper’s Creative Commons Attribution 4.0.
