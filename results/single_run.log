@@ -1,0 +1,83 @@
+gcc -O3 -Wall -o build/vi_single src/vi_single.c -lm
+One-product perishable inventory VI + simulation (Paper 2.3)
+Paper reports (M=2): base S=13, Q=9, 12 iters, pi~2.215, wasteperc drops.
+Then (M=3): base S=15, N=4096, 15 iters.
+Then (M=4): Q=20, pi~2.47, base S=16 practically same profit.
+
+============================================================
+Experiment: M=2, Qbar=9, base-stock S=13
+Params: s=1.0 c=0.5 mu=5 eps=1.0e-04
+State space N=(Q+1)^M = 100
+
+  iter  1: span=3.316614 pi=3.2810 
+  iter  2: span=0.668565 pi=1.9775 
+  iter  3: span=0.166191 pi=2.2111 
+  iter  4: span=0.094585 pi=2.2427 
+  iter  5: span=0.023972 pi=2.2089 
+  iter  6: span=0.008190 pi=2.2154 
+  iter  7: span=0.004770 pi=2.2163 
+  iter  8: span=0.001380 pi=2.2149 
+  iter  9: span=0.001161 pi=2.2150 
+  iter 10: span=0.000508 pi=2.2153 
+  iter 11: span=0.000127 pi=2.2151 
+  iter 12: span=0.000120 pi=2.2151 
+  iter 13: span=0.000048 pi=2.2152 (converged)
+
+VI done: iters=13 pi=2.2152 time=0.006s
+Policy check: max optimal q over all states = 7
+
+Simulation (400000 periods, burn-in 2000):
+  Base-stock:  Pi=2.196, Wasteperc=7.18, AvgOrder=5.129
+  Optimal   :  Pi=2.215, Wasteperc=5.74, AvgOrder=5.005
+
+============================================================
+Experiment: M=3, Qbar=15, base-stock S=15
+Params: s=1.0 c=0.5 mu=5 eps=1.0e-04
+State space N=(Q+1)^M = 4096
+
+  iter  1: span=3.377337 pi=3.3113 
+  iter  2: span=3.377204 pi=3.3113 
+  iter  3: span=0.839825 pi=2.0426 
+  iter  4: span=0.331610 pi=2.2921 
+  iter  5: span=0.066868 pi=2.4244 
+  iter  6: span=0.066867 pi=2.4244 
+  iter  7: span=0.014068 pi=2.3981 
+  iter  8: span=0.008596 pi=2.3954 
+  iter  9: span=0.002712 pi=2.3983 
+  iter 10: span=0.001147 pi=2.3990 
+  iter 11: span=0.000419 pi=2.3986 
+  iter 12: span=0.000097 pi=2.3985 (converged)
+
+VI done: iters=12 pi=2.3985 time=0.529s
+Policy check: max optimal q over all states = 9
+
+Simulation (400000 periods, burn-in 2000):
+  Base-stock:  Pi=2.392, Wasteperc=2.58, AvgOrder=5.044
+  Optimal   :  Pi=2.398, Wasteperc=2.31, AvgOrder=5.028
+
+============================================================
+Experiment: M=4, Qbar=20, base-stock S=16
+Params: s=1.0 c=0.5 mu=5 eps=1.0e-04
+State space N=(Q+1)^M = 194481
+
+  iter  1: span=3.377337 pi=3.3113 
+  iter  2: span=3.377337 pi=3.3113 
+  iter  3: span=3.377337 pi=3.3113 
+  iter  4: span=0.870812 pi=2.0581 
+  iter  5: span=0.365836 pi=2.3092 
+  iter  6: span=0.084003 pi=2.4501 
+  iter  7: span=0.027196 pi=2.4785 
+  iter  8: span=0.027196 pi=2.4785 
+  iter  9: span=0.008557 pi=2.4692 
+  iter 10: span=0.001891 pi=2.4658 
+  iter 11: span=0.001237 pi=2.4661 
+  iter 12: span=0.000586 pi=2.4665 
+  iter 13: span=0.000276 pi=2.4666 
+  iter 14: span=0.000073 pi=2.4666 (converged)
+
+VI done: iters=14 pi=2.4666 time=58.605s
+Policy check: max optimal q over all states = 11
+
+Simulation (400000 periods, burn-in 2000):
+  Base-stock:  Pi=2.465, Wasteperc=0.54, AvgOrder=4.984
+  Optimal   :  Pi=2.467, Wasteperc=0.72, AvgOrder=5.007
