@@ -8,7 +8,7 @@ NVCCFLAGS = -O3 -arch=sm_50  # sm_50 for Maxwell+, adjust for your GPU
 BUILD_DIR = build
 SRC_DIR = src
 
-.PHONY: all clean sequential cuda
+.PHONY: all clean sequential cuda single
 
 # 'make all' builds sequential; cuda requires nvcc (use cloud GPU)
 all: sequential
@@ -17,6 +17,8 @@ all: sequential
 sequential: $(BUILD_DIR)/vi_sequential
 
 cuda: $(BUILD_DIR)/vi_cuda
+
+single: $(BUILD_DIR)/vi_single
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
@@ -29,5 +31,9 @@ $(BUILD_DIR)/vi_sequential: $(SRC_DIR)/vi_sequential.c $(SRC_DIR)/common.c | $(B
 $(BUILD_DIR)/vi_cuda: $(SRC_DIR)/vi_cuda.cu $(SRC_DIR)/common.c | $(BUILD_DIR)
 	$(NVCC) $(NVCCFLAGS) -o $@ $^ -lcudart
 
+# Single-product VI (Paper Section 2.3)
+$(BUILD_DIR)/vi_single: $(SRC_DIR)/vi_single.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -o $@ $^ -lm
+
 clean:
-	rm -rf $(BUILD_DIR)/*.o $(BUILD_DIR)/vi_sequential $(BUILD_DIR)/vi_cuda
+	rm -rf $(BUILD_DIR)/*.o $(BUILD_DIR)/vi_sequential $(BUILD_DIR)/vi_cuda $(BUILD_DIR)/vi_single
